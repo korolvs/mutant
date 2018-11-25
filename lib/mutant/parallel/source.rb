@@ -6,6 +6,10 @@ module Mutant
     class Source
       include AbstractType
 
+      class Job
+        include Concord::Public.new(:index, :payload)
+      end
+
       NoJobError = Class.new(RuntimeError)
 
       # Next job
@@ -43,13 +47,13 @@ module Mutant
 
         # Next job
         #
-        # @return [Object]
+        # @return [Job]
         #
         # @raise [NoJobError]
         #   when no next job is available
         def next
           fail NoJobError unless next?
-          jobs.fetch(@next_index).tap do
+          Job.new(@next_index, jobs.fetch(@next_index)).tap do
             @next_index += 1
           end
         end
