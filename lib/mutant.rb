@@ -206,6 +206,7 @@ require 'mutant/reporter/cli/printer/test_result'
 require 'mutant/reporter/cli/tput'
 require 'mutant/reporter/cli/format'
 require 'mutant/repository'
+require 'mutant/variable'
 require 'mutant/zombifier'
 
 module Mutant
