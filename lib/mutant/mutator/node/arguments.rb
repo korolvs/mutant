@@ -25,8 +25,19 @@ module Mutant
         def emit_argument_presence
           emit_type
           Util::Array::Presence.call(children).each do |children|
-            emit_type(*children)
+            if children.one? && n_mlhs?(children.first)
+              emit_procarg(children.first)
+            else
+              emit_type(*children)
+            end
           end
+        end
+
+        # Emit procarg form
+        #
+        # @return [undefined]
+        def emit_procarg(arg)
+          emit_type(s(:procarg0, *arg.children))
         end
 
         # Emit argument mutations
